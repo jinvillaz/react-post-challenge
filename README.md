@@ -44,3 +44,14 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## For testing
+
+You can use the next users:  
+Role User  
+email: <test@example.com>  
+password: 123
+
+Role Admin  
+email: <admin@example.com>  
+password: 123
