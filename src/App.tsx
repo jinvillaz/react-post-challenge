@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-function App() {
+import { Navbar } from './components/Navbar'
+import { PostList } from './pages/PostList'
+import { PostDetail } from './pages/PostDetail'
+import { Home } from './pages/Home'
+import { AdminZone } from './pages/AdminZone'
+import { LoginPage } from './pages/LoginPage'
+import { AuthProvider } from './context/authContext'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import { AccessDenied } from './pages/AccessDenied'
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <AuthProvider>
+        <Navbar />
+        <ToastContainer />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/access-denied" element={<AccessDenied />} />
+          <Route
+            path="/posts"
+            element={
+              <ProtectedRoute allowedRoles={['user']}>
+                <PostList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/posts/:postId"
+            element={
+              <ProtectedRoute allowedRoles={['user']}>
+                <PostDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin-zone"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminZone />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  )
 }
-
-export default App;

@@ -1,0 +1,5 @@
+.prettierrc.js
+dist
+jest.config.js
+src/reportWebVital.ts
+src\reportWebVital.ts
